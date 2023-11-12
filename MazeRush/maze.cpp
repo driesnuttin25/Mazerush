@@ -40,34 +40,39 @@ void Maze::generateMaze() {
     }
 }
 
+
 void Maze::displayMaze() {
-    // Print the top boundary
-    for (int x = 0; x < 2 * m_width + 1; ++x) {
-        std::cout << (x % 2 == 0 ? '+' : '-');
-    }
-    std::cout << std::endl;
+    char wallChar = static_cast<char>(254); // ASCII character for a solid block
 
+    // Iterate over each cell of the maze
     for (int y = 0; y < m_height; ++y) {
-        // Print the left boundary
-        std::cout << '|';
+        // Print the top walls for the current row
         for (int x = 0; x < m_width; ++x) {
-            // Print the cell's space
-            std::cout << (m_cells[x][y].visited ? ' ' : '#');
-
-            // Print the wall to the right if it exists
-            std::cout << (m_cells[x][y].right ? '|' : ' ');
+            std::cout << wallChar; // Top left corner of the cell
+            std::cout << (m_cells[x][y].top ? wallChar : ' ');
         }
-        std::cout << std::endl;
+        std::cout << wallChar << std::endl; // Top right corner of the last cell
 
-        // Print the horizontal walls below the current row of cells
-        std::cout << '254';
+        // Print the side walls and the space for the current row
         for (int x = 0; x < m_width; ++x) {
-            std::cout << (m_cells[x][y].bottom ? '-' : ' ');
-            std::cout << '+';
+            // Print the left wall of the cell
+            std::cout << (m_cells[x][y].left ? wallChar : ' ');
+            // Print the cell's space or the player
+            std::cout << (m_cells[x][y].visited ? ' ' : wallChar);
         }
-        std::cout << std::endl;
+        // Print the right wall of the last cell
+        std::cout << wallChar << std::endl;
     }
+
+    // Print the bottom walls for the last row
+    for (int x = 0; x < m_width; ++x) {
+        std::cout << wallChar; // Bottom left corner of the cell
+        std::cout << (m_cells[x][m_height - 1].bottom ? wallChar : ' ');
+    }
+    std::cout << wallChar << std::endl; // Bottom right corner of the last cell
 }
+
+
 
 
 
