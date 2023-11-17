@@ -11,11 +11,13 @@ CONFIG += c++17
 SOURCES += \
     Player.cpp \
     main.cpp \
-    maze.cpp
+    maze.cpp \
+    mazeview.cpp
 
 HEADERS += \
     Player.h \
-    maze.h
+    maze.h \
+    mazeview.h
 
 FORMS +=
 
