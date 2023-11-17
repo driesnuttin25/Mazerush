@@ -1,5 +1,4 @@
 // Player.cpp
-// Player.cpp
 #include "Player.h"
 #include <QGraphicsScene>
 #include <QBrush>
@@ -21,7 +20,6 @@ Player::Player(QGraphicsItem* parent) : QGraphicsRectItem(parent), stepSize(10),
 QSizeF Player::getPlayerSize() const {
     return playerSize;
 }
-
 
 void Player::keyPressEvent(QKeyEvent *event) {
     qDebug() << "Key pressed:" << event->key();
