@@ -1,31 +1,42 @@
 #ifndef MAZE_H
 #define MAZE_H
-
-#include <iostream>
-#include <vector>
 #include <stack>
-#include <cstdlib>  // For rand() and srand()
-#include <ctime>    // For time()
-#include <optional>
 
-class Maze {
+class Maze
+{
 public:
-    Maze(int width, int height);
-
-    void generateMaze();
-    void displayMaze();
-
-private:
-    struct Cell {
-        bool visited = false;
-        bool top = true, bottom = true, left = true, right = true;
+    Maze();
+    enum class CELL_TYPE{
+        CELL_PATH_N = 0x01,
+        CELL_PATH_E = 0x02,
+        CELL_PATH_S = 0x04,
+        CELL_PATH_W = 0x08,
+        CELL_VISITED = 0x10,
     };
+private:
+    int m_nMazeWidth;
+    int m_nMazeHeight;
+    int *m_maze;
 
-    int m_width, m_height;
-    std::vector<std::vector<Cell>> m_cells;
-    std::stack<std::pair<int, int>> m_path;  // To hold the current path
 
-    std::optional<std::pair<int, int>> chooseNextCell(int x, int y);
+
+    // Algorithm variables
+    int  m_nVisitedCells;
+    std::stack<std::pair<int, int>> m_stack;	// (x, y) coordinate pairs
+    int  m_nPathWidth;
+
+public:
+    void init();
+    void updateMaze();
+
+    int mazeWidth() const;
+    int mazeHeight() const;
+    int* maze() const;
+
+    int visitedCells() const;
+    int pathWidth() const;
+
+    std::stack<std::pair<int, int>> stack() const;
 };
 
-#endif
+#endif // MAZE_H

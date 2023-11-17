@@ -1,10 +1,12 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#endif // PLAYER_H
+#include <QGraphicsRectItem>
 
-// Player.h
-struct Player {
-    int x, y; // Player position
-    void move(char direction);
+class Player: public QGraphicsRectItem{
+public:
+    void keyPressEvent(QKeyEvent * event);
+
 };
+
+#endif // PLAYER_H

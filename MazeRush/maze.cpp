@@ -1,103 +1,127 @@
-#include "Maze.h"
+#include "maze.h"
+#include <cstdlib>
 #include <iostream>
-#include <random>
+#include <cstring>
+#include <vector>
 
-Maze::Maze(int width, int height) : m_width(width), m_height(height) {
-    m_cells = std::vector<std::vector<Cell>>(width, std::vector<Cell>(height));
-    srand(time(nullptr));  // Seed for random number generation
+Maze::Maze()
+{
+    init();
 }
 
-void Maze::generateMaze() {
-    int startX = rand() % m_width;
-    int startY = rand() % m_height;
-    m_cells[startX][startY].visited = true;
-    m_path.push({startX, startY});
+void Maze::init()
+{
+    m_nMazeWidth = 40;
+    m_nMazeHeight = 25;
+    m_maze = new int[m_nMazeWidth*m_nMazeHeight];
+    memset(m_maze, 0x00, m_nMazeWidth*m_nMazeHeight*sizeof(int));
+    m_nPathWidth = 20;
 
-    while (!m_path.empty()) {
-        auto [x, y] = m_path.top();
-        auto next = chooseNextCell(x, y);
+    //Choose a starting cell
+    int x = rand() % m_nMazeWidth;
+    int y = rand() % m_nMazeHeight;
+    m_stack.push(std::make_pair(x, y));
+    m_maze[y * m_nMazeWidth + x] = int(CELL_TYPE::CELL_VISITED);
+    m_nVisitedCells = 1;
+}
 
-        if (next) {
-            int nextX = next->first, nextY = next->second;
+void Maze::updateMaze()
+{
+    auto offset = [&](int x, int y)
+    {
+        return (m_stack.top().second + y) * m_nMazeWidth + (m_stack.top().first + x);
+    };
 
-            // Remove walls between current cell and next cell
-            if (x > nextX) { // Move left
-                m_cells[x][y].left = false;
-                m_cells[nextX][nextY].right = false;
-            } else if (x < nextX) { // Move right
-                m_cells[x][y].right = false;
-                m_cells[nextX][nextY].left = false;
+    // Do Maze Algorithm
+    if (m_nVisitedCells < m_nMazeWidth * m_nMazeHeight)
+    {
+        // Create a set of unvisted neighbours
+        std::vector<int> neighbours;
+
+        // North neighbour
+        if (m_stack.top().second > 0 && (m_maze[offset(0, -1)] & int(CELL_TYPE::CELL_VISITED) ) == 0)
+            neighbours.push_back(0);
+        // East neighbour
+        if (m_stack.top().first < m_nMazeWidth - 1 && (m_maze[offset(1, 0)] & int(CELL_TYPE::CELL_VISITED) ) == 0)
+            neighbours.push_back(1);
+        // South neighbour
+        if (m_stack.top().second < m_nMazeHeight - 1 && (m_maze[offset(0, 1)] & int(CELL_TYPE::CELL_VISITED) ) == 0)
+            neighbours.push_back(2);
+        // West neighbour
+        if (m_stack.top().first > 0 && (m_maze[offset(-1, 0)] & int(CELL_TYPE::CELL_VISITED) ) == 0)
+            neighbours.push_back(3);
+
+        // Are there any neighbours available?
+        if (!neighbours.empty())
+        {
+            // Choose one available neighbour at random
+            int next_cell_dir = neighbours[rand() % neighbours.size()];
+
+            // Create a path between the neighbour and the current cell
+            switch (next_cell_dir)
+            {
+            case 0: // North
+                m_maze[offset(0, -1)] |= int(CELL_TYPE::CELL_VISITED) | int(CELL_TYPE::CELL_PATH_S);
+                m_maze[offset(0,  0)] |= int(CELL_TYPE::CELL_PATH_N);
+                m_stack.push(std::make_pair((m_stack.top().first + 0), (m_stack.top().second - 1)));
+                break;
+
+            case 1: // East
+                m_maze[offset(+1, 0)] |= int(CELL_TYPE::CELL_VISITED) | int(CELL_TYPE::CELL_PATH_W);
+                m_maze[offset( 0, 0)] |= int(CELL_TYPE::CELL_PATH_E);
+                m_stack.push(std::make_pair((m_stack.top().first + 1), (m_stack.top().second + 0)));
+                break;
+
+            case 2: // South
+                m_maze[offset(0, +1)] |= int(CELL_TYPE::CELL_VISITED) | int(CELL_TYPE::CELL_PATH_N);
+                m_maze[offset(0,  0)] |= int(CELL_TYPE::CELL_PATH_S);
+                m_stack.push(std::make_pair((m_stack.top().first + 0), (m_stack.top().second + 1)));
+                break;
+
+            case 3: // West
+                m_maze[offset(-1, 0)] |= int(CELL_TYPE::CELL_VISITED) | int(CELL_TYPE::CELL_PATH_E);
+                m_maze[offset( 0, 0)] |= int(CELL_TYPE::CELL_PATH_W);
+                m_stack.push(std::make_pair((m_stack.top().first - 1), (m_stack.top().second + 0)));
+                break;
+
             }
 
-            std::cout << "Moving from (" << x << ", " << y << ") to (" << nextX << ", " << nextY << ")\n";
-
-            m_cells[nextX][nextY].visited = true;
-            m_path.push({nextX, nextY});
-        } else {
-            m_path.pop();
-            std::cout << "Backtracking from (" << x << ", " << y << ")\n";
+            m_nVisitedCells++;
+        }
+        else
+        {
+            // No available neighbours so backtrack!
+            m_stack.pop();
         }
     }
 }
 
-
-void Maze::displayMaze() {
-    char wallChar = static_cast<char>(254); // ASCII character for a solid block
-
-    // Iterate over each cell of the maze
-    for (int y = 0; y < m_height; ++y) {
-        // Print the top walls for the current row
-        for (int x = 0; x < m_width; ++x) {
-            std::cout << wallChar; // Top left corner of the cell
-            std::cout << (m_cells[x][y].top ? wallChar : ' ');
-        }
-        std::cout << wallChar << std::endl; // Top right corner of the last cell
-
-        // Print the side walls and the space for the current row
-        for (int x = 0; x < m_width; ++x) {
-            // Print the left wall of the cell
-            std::cout << (m_cells[x][y].left ? wallChar : ' ');
-            // Print the cell's space or the player
-            std::cout << (m_cells[x][y].visited ? ' ' : wallChar);
-        }
-        // Print the right wall of the last cell
-        std::cout << wallChar << std::endl;
-    }
-
-    // Print the bottom walls for the last row
-    for (int x = 0; x < m_width; ++x) {
-        std::cout << wallChar; // Bottom left corner of the cell
-        std::cout << (m_cells[x][m_height - 1].bottom ? wallChar : ' ');
-    }
-    std::cout << wallChar << std::endl; // Bottom right corner of the last cell
+int Maze::mazeWidth() const
+{
+    return m_nMazeWidth;
 }
 
+int Maze::mazeHeight() const
+{
+    return m_nMazeHeight;
+}
 
+int *Maze::maze() const
+{
+    return m_maze;
+}
 
+int Maze::visitedCells() const
+{
+    return m_nVisitedCells;
+}
 
+int Maze::pathWidth() const
+{
+    return m_nPathWidth;
+}
 
-std::optional<std::pair<int, int>> Maze::chooseNextCell(int x, int y) {
-    std::vector<std::pair<int, int>> neighbors;
-
-    // Check each neighbor (up, down, left, right)
-    if (x > 0 && !m_cells[x - 1][y].visited) {
-        neighbors.push_back({x - 1, y});
-    }
-    if (y > 0 && !m_cells[x][y - 1].visited) {
-        neighbors.push_back({x, y - 1});
-    }
-    if (x < m_width - 1 && !m_cells[x + 1][y].visited) {
-        neighbors.push_back({x + 1, y});
-    }
-    if (y < m_height - 1 && !m_cells[x][y + 1].visited) {
-        neighbors.push_back({x, y + 1});
-    }
-
-    // Pick a random unvisited neighbor
-    if (!neighbors.empty()) {
-        int randomIndex = std::rand() % neighbors.size();
-        return neighbors[randomIndex];
-    }
-
-    return std::nullopt;
+std::stack<std::pair<int, int> > Maze::stack() const
+{
+    return m_stack;
 }
