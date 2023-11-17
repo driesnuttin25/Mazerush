@@ -1,12 +1,19 @@
+// Player.h
 #ifndef PLAYER_H
 #define PLAYER_H
 
 #include <QGraphicsRectItem>
+#include <QKeyEvent>
 
-class Player: public QGraphicsRectItem{
+class Player : public QGraphicsRectItem {
 public:
-    void keyPressEvent(QKeyEvent * event);
+    Player(QGraphicsItem* parent = nullptr);
+    void keyPressEvent(QKeyEvent *event) override;
+    QSizeF getPlayerSize() const;
 
+private:
+    int stepSize;
+    QSizeF playerSize; // Add a member variable for player size
 };
 
 #endif // PLAYER_H

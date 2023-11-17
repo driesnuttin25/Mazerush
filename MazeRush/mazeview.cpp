@@ -29,9 +29,6 @@ void MazeView::drawMaze() {
                 rect->setBrush(brush);
                 this->scene()->addItem(rect);
                 qDebug() << "Wall at:" << x << y;
-            } else {
-                // Optionally log open paths
-                // qDebug() << "Path at:" << x << y;
             }
         }
     }
