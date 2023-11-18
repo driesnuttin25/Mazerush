@@ -1,31 +1,31 @@
 # Mazerush
+<img width="566" alt="image" src="https://github.com/driesnuttin25/Mazerush/assets/114076101/562b473b-136b-4ac1-a604-9443abe88ff0">
 
-## Description
-
-This project is a console-based maze game developed in C++. In this game, players navigate through a randomly generated maze to find hidden treasures and avoid various obstacles. The game is designed to be simple yet engaging, showcasing the use of object-oriented programming principles.
+## Overview
+Mazerush is an interactive, graphical maze exploration game where players navigate through a maze to collect chests and coins. The goal is to collect as many coins as possible before time runs out or navigate through the maze's challenges.
 
 ## Features
-
-- **Randomly Generated Mazes**: Each game session presents a unique maze for an ever-changing challenge.
-- **Interactive Gameplay**: Players use keyboard inputs to navigate through the maze.
-- **Treasure Collection**: Hidden treasures scattered throughout the maze for players to find.
-- **Obstacle Avoidance**: Various obstacles that add complexity to the maze navigation.
-- **Simple Console Graphics**: The game uses console characters for its display, making it lightweight and universally runnable.
+- Navigate through a dynamically generated maze.
+- Collect chests to increase your coin count.
+- Visual coin counter to track the number of coins collected.
+- Collision detection with walls and chests.
 
 ## How to Play
+- Use arrow keys to move the player through the maze.
+- Collect chests to gain coins. Each chest will increase your coin count.
+- Avoid getting trapped in dead ends within the maze.
 
-- Use `W` (up), `A` (left), `S` (down), and `D` (right) to move through the maze.
-- Navigate the maze to find and collect treasures.
-- Avoid hitting obstacles and walls.
-- Successfully exit the maze after collecting the treasures to win the game.
+<img width="566" alt="image" src="https://github.com/driesnuttin25/Mazerush/assets/114076101/e180f06b-2ffa-4f34-8156-06204dfb83e5">
 
-
-## Dependencies
-
-- Standard C++ libraries
-- `conio.h` for keyboard input handling (specific to Windows)
-
+## Technologies Used
+- C++ for game logic.
+- Qt Framework for graphics and UI components.
 
 ## Acknowledgments
 
 - I am part of the PXL electronics and ICT group and this project is developed as part of an educational initiative to learn C++ and object-oriented programming.
+
+
+
+
+
