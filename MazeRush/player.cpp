@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Chest.h"
+#include "GameItem.h"
 #include <QGraphicsScene>
 #include <QBrush>
 #include <QDebug>
@@ -70,11 +71,10 @@ void Player::move() {
 
     for (QGraphicsItem* item : itemsAtNewPos) {
         if (item != this) { // Avoid self-collision
-            if (Chest* chest = dynamic_cast<Chest*>(item)) {
-                if (!chest->isCollected()) {
-                    chest->collect(); // Collect the chest
-                }
-                // Note: No break here, chest does not block movement
+            GameItem* gameItem = dynamic_cast<GameItem*>(item);
+            if (gameItem) {
+                gameItem->interact(this); // Use interact method for any game item
+                continue; // Continue to the next item, as game items do not block movement
             } else {
                 // Treat any other collision as a wall collision
                 collisionDetected = true;
@@ -83,6 +83,7 @@ void Player::move() {
             }
         }
     }
+
 
     if (!collisionDetected) {
         setPos(newPos);

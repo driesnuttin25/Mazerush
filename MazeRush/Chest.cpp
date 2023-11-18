@@ -1,3 +1,4 @@
+// Chest.cpp
 #include "Chest.h"
 #include "qgraphicsscene.h"
 #include <QPixmap>
@@ -8,13 +9,14 @@ Chest::Chest(Player* player, MazeView* mazeView, int x, int y, int cellSize)
     QPixmap scaledPixmap = originalPixmap.scaled(cellSize-20, cellSize-20, Qt::KeepAspectRatio);
     setPixmap(scaledPixmap);
     setPos(x * cellSize, y * cellSize);
+    collected = false;
 }
 
 bool Chest::isCollected() const {
     return collected;
 }
 
-void Chest::collect() {
+void Chest::interact(Player* player) {
     if (!collected) {
         collected = true;
         hide(); // Hide the chest

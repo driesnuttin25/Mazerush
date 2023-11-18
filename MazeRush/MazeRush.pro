@@ -18,6 +18,7 @@ SOURCES += \
 
 HEADERS += \
     Chest.h \
+    GameItem.h \
     Player.h \
     maze.h \
     mazeview.h

@@ -2,20 +2,20 @@
 #define CHEST_H
 
 #include "Player.h"
-#include "mazeview.h"
+#include "GameItem.h"
+#include "MazeView.h" // Include MazeView header
 #include <QGraphicsPixmapItem>
 
-class Chest : public QGraphicsPixmapItem {
+class Chest : public GameItem {
 public:
     Chest(Player* player, MazeView* mazeView, int x, int y, int cellSize);
     bool isCollected() const;
-    void collect(); // Method to handle chest collection
+    void interact(Player* player) override;
 
 private:
     bool collected;
     Player* player;
-    MazeView* mazeView;
-
+    MazeView* mazeView; // Declare MazeView pointer
 };
 
 #endif // CHEST_H

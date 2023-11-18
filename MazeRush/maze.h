@@ -13,9 +13,9 @@ public:
     Maze(int width, int height, QObject* parent = nullptr);
     const std::vector<std::vector<int>>& getLayout() const;
     void updateTile(int x, int y);
-
-    void placeChests(int numberOfChests);
     int width, height;
+    void placeChests(int numberOfChests);
+
 
 private:
     std::vector<std::vector<int>> maze;
