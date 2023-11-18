@@ -17,14 +17,21 @@ public:
     void keyReleaseEvent(QKeyEvent *event) override;
     QSizeF getPlayerSize() const;
 
+    void addCoin();
+    int getCoins() const;
 public slots:
     void move();
+
+signals:
+    void chestCollected(int x, int y);
 
 private:
     float stepSize;
     QSizeF playerSize;
     QTimer* moveTimer;
-    QSet<int> pressedKeys; // Store pressed keys
+    QSet<int> pressedKeys;
+    int coins = 0;
+
 };
 
 #endif // PLAYER_H

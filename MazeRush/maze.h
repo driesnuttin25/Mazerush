@@ -2,18 +2,24 @@
 #ifndef MAZE_H
 #define MAZE_H
 
+#include "qgraphicsitem.h"
+#include <QObject>
 #include <vector>
-#include <QDebug>
 
+class Maze : public QObject {
+    Q_OBJECT
 
-class Maze {
 public:
-    Maze(int width, int height);
+    Maze(int width, int height, QObject* parent = nullptr);
     const std::vector<std::vector<int>>& getLayout() const;
+    void updateTile(int x, int y);
+
+    void placeChests(int numberOfChests);
+    int width, height;
 
 private:
-    int width, height;
     std::vector<std::vector<int>> maze;
+    QGraphicsTextItem* coinDisplay;
 
     void generateMaze();
     void carveMazePath(int x, int y);
