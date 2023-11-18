@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/textures">
+        <file>pixil-frame-0.png</file>
+    </qresource>
+</RCC>

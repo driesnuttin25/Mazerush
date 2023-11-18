@@ -8,9 +8,9 @@
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
-    int mazeWidth = 25; // Width of the maze in cells
-    int mazeHeight = 25; // Height of the maze in cells
-    int cellSize = 40; // Size of each cell in pixels
+    int mazeWidth = 19; // Width of the maze in cells
+    int mazeHeight = 19; // Height of the maze in cells
+    int cellSize = 50; // Size of each cell in pixels
 
     qDebug() << "Creating maze with dimensions:" << mazeWidth << mazeHeight;
     Maze maze(mazeWidth, mazeHeight);
