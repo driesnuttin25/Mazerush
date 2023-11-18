@@ -11,6 +11,7 @@ CONFIG += c++17
 
 SOURCES += \
     Chest.cpp \
+    Hole.cpp \
     Player.cpp \
     main.cpp \
     maze.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 HEADERS += \
     Chest.h \
     GameItem.h \
+    Hole.h \
     Player.h \
     maze.h \
     mazeview.h

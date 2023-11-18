@@ -1,6 +1,7 @@
 // MazeView.cpp
 #include "MazeView.h"
 #include "Chest.h"
+#include "Hole.h"
 #include "Player.h"
 #include <QGraphicsRectItem>
 #include <QBrush>
@@ -32,10 +33,15 @@ void MazeView::drawMaze() {
 
     for (size_t y = 0; y < layout.size(); ++y) {
         for (size_t x = 0; x < layout[y].size(); ++x) {
+            if (layout[y][x] == 3) { // Check for hole
+                Hole* hole = new Hole(x, y, cellSize);
+                this->scene()->addItem(hole);
+                qDebug() << "Added hole";
+            }
             if (layout[y][x] == 2) { // Check for chest
                 Chest* chest = new Chest(player, this, x, y, cellSize);
                 this->scene()->addItem(chest);
-
+                qDebug() << "Added Chest";
             }
             if (layout[y][x] == 1) { // Wall
                 QGraphicsPixmapItem* wall = new QGraphicsPixmapItem(wallTexture);

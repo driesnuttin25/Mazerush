@@ -3,5 +3,6 @@
         <file>wall.png</file>
         <file>chest.png</file>
         <file>coin.png</file>
+        <file>hole.png</file>
     </qresource>
 </RCC>

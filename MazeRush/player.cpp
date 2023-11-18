@@ -74,15 +74,15 @@ void Player::move() {
             GameItem* gameItem = dynamic_cast<GameItem*>(item);
             if (gameItem) {
                 gameItem->interact(this); // Use interact method for any game item
-                continue; // Continue to the next item, as game items do not block movement
+                continue; // Continue to the next item
             } else {
                 // Treat any other collision as a wall collision
                 collisionDetected = true;
-                qDebug() << "Collision detected with wall at:" << item->pos();
                 break; // Break on the first wall collision
             }
         }
     }
+
 
 
     if (!collisionDetected) {

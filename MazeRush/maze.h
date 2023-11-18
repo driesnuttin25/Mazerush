@@ -15,6 +15,7 @@ public:
     void updateTile(int x, int y);
     int width, height;
     void placeChests(int numberOfChests);
+    void placeHoles(int numberOfHoles);
 
 
 private:
