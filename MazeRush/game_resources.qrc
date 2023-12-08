@@ -4,5 +4,6 @@
         <file>chest.png</file>
         <file>coin.png</file>
         <file>hole.png</file>
+        <file>TitleScreen.png</file>
     </qresource>
 </RCC>

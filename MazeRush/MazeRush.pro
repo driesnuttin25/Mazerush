@@ -13,6 +13,7 @@ SOURCES += \
     Chest.cpp \
     Hole.cpp \
     Player.cpp \
+    TitleScreen.cpp \
     main.cpp \
     maze.cpp \
     mazeview.cpp
@@ -22,6 +23,7 @@ HEADERS += \
     GameItem.h \
     Hole.h \
     Player.h \
+    TitleScreen.h \
     maze.h \
     mazeview.h
 

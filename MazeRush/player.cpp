@@ -1,3 +1,4 @@
+// Player.cpp
 #include "Player.h"
 #include "Chest.h"
 #include "GameItem.h"
@@ -27,22 +28,24 @@ Player::Player(QGraphicsItem* parent) : QGraphicsRectItem(parent), stepSize(3), 
     setFocus();
 }
 
-
 void Player::keyPressEvent(QKeyEvent *event) {
-    pressedKeys.insert(event->key()); // Add the key to the set of pressed keys
-    if (!moveTimer->isActive()) {
-        moveTimer->start(15); // Don't change this number, It took me ages to set up this way! 'please <3'
+    if (!pressedKeys.contains(event->key())) {
+        pressedKeys.insert(event->key()); // Add the key to the set of pressed keys
+        if (!moveTimer->isActive()) {
+            moveTimer->start(15); // Check that this line is correctly executed
+        }
     }
-    keyHeld = true; // Set the key held flag
+    event->accept();
 }
 
 void Player::keyReleaseEvent(QKeyEvent *event) {
     pressedKeys.remove(event->key()); // Remove the key from the set
-    if (pressedKeys.isEmpty()) {
-        moveTimer->stop();
+    if (pressedKeys.isEmpty() && moveTimer->isActive()) {
+        moveTimer->stop(); // This should only stop the timer if no keys are pressed
     }
-    keyHeld = false; // Reset keyheld
+    event->accept();
 }
+
 
 
 QSizeF Player::getPlayerSize() const {
@@ -51,10 +54,7 @@ QSizeF Player::getPlayerSize() const {
 
 
 void Player::move() {
-    if (!keyHeld) {
-        moveTimer->stop();
-        return;
-    }
+    qDebug() << "Move method called";
 
     int dx = 0;
     int dy = 0;
@@ -70,20 +70,17 @@ void Player::move() {
     bool collisionDetected = false;
 
     for (QGraphicsItem* item : itemsAtNewPos) {
-        if (item != this) { // Avoid self-collision
+        if (item != this) {
             GameItem* gameItem = dynamic_cast<GameItem*>(item);
             if (gameItem) {
-                gameItem->interact(this); // Use interact method for any game item
-                continue; // Continue to the next item
+                gameItem->interact(this);
+                continue;
             } else {
-                // Treat any other collision as a wall collision
                 collisionDetected = true;
-                break; // Break on the first wall collision
+                break;
             }
         }
     }
-
-
 
     if (!collisionDetected) {
         setPos(newPos);
@@ -92,6 +89,7 @@ void Player::move() {
         qDebug() << "Movement blocked by collision";
     }
 }
+
 
 void Player::addCoin() {
     coins++;
