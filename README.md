@@ -15,7 +15,7 @@ Mazerush is an interactive, graphical maze exploration game where players naviga
 - Collect chests to gain coins. Each chest will increase your coin count.
 - Avoid getting trapped in dead ends within the maze.
 
-<img width="566" alt="image" src="https://github.com/driesnuttin25/Mazerush/assets/114076101/e180f06b-2ffa-4f34-8156-06204dfb83e5">
+<img width="566" alt="image" src="https://github.com/driesnuttin25/Mazerush/assets/114076101/11ca8e88-02e9-4683-a450-c02143ea668e">
 
 ## Maze Generation
 
@@ -50,15 +50,16 @@ In the game, the maze is visually represented with distinct graphics for the wal
 
 The recursive backtracking algorithm ensures that the maze is intriguing and enjoyable, providing a different challenge each time the game is played.
 
-<img width="300" alt="image" src="https://github.com/driesnuttin25/Mazerush/assets/114076101/54b82e61-e62e-4a4a-b08c-def13475d404">
+<img width="300" alt="image" src="https://github.com/driesnuttin25/Mazerush/assets/114076101/8f554a2f-1610-4d90-9388-9dacfc42ca73">
 
-<img width="300" alt="image" src="https://github.com/driesnuttin25/Mazerush/assets/114076101/cede978e-6cea-48dd-9006-cdcfb8ea102e">
+<img width="300" alt="image" src="https://github.com/driesnuttin25/Mazerush/assets/114076101/47ba791c-9b0b-4e57-96b1-73f274223d20">
 
-<img width="300" alt="image" src="https://github.com/driesnuttin25/Mazerush/assets/114076101/b6e08316-a15e-40b9-a1f3-7ce4b2d8b7b6">
+<img width="300" alt="image" src="https://github.com/driesnuttin25/Mazerush/assets/114076101/829c92cd-c65e-452c-bb55-1c493deb6d5f">
 
-Ofcourse all the conditions can also be altered, including the maze height and width and the amount of chests.
+Ofcourse all the conditions can also be altered, including the maze height and width and the amount of chests and the amount of holes a player could fall into.
 
-<img width="300" alt="image" src="https://github.com/driesnuttin25/Mazerush/assets/114076101/9b200d65-81e9-4860-bf34-367d24aa3947">
+<img width="300" alt="image" src="https://github.com/driesnuttin25/Mazerush/assets/114076101/43dab3ad-99bb-4b0f-a94b-9b18a38d06e7">
+<img width="300" alt="image" src="https://github.com/driesnuttin25/Mazerush/assets/114076101/b54500ad-832c-4a10-9db8-463854eaaa1c">
 
 
 
