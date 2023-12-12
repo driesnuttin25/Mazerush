@@ -1,109 +1,21 @@
 # Grading System
 
 ### Grades
-`[#########-------------------------------] 36%`
-_19/50 points gathered_
+`[######----------------------------------] 26%`
+_13/50 points gathered_
 
 
 
-## Basis
-- [x] Useful and correct class - _Explain why_
-```cpp
-// Example: Chest class
-class Chest : public GameItem {
-    // ...
-};
-
-// The Chest class is a useful representation of a chest in the game, encapsulating its properties and behaviors, like being collected and interacting with the player.
-```
-- [x] Useful and correct abstraction - _Explain why_
-```cpp
-class GameItem : public QGraphicsPixmapItem {
-    public:
-        virtual void interact(Player* player) = 0;
-};
-
-// GameItem serves as an abstract base class, defining a common interface (interact) for game items like Chest and Hole. This promotes abstraction by allowing different items to be treated uniformly in the game logic.
-```
-- [x] Useful and correct encapsulation - _Explain why_
-```cpp
-class Player : public QObject, public QGraphicsRectItem {
-    // ...
-private:
-    float stepSize;
-    QSizeF playerSize;
-    QTimer* moveTimer;
-    QSet<int> pressedKeys;
-    int coins = 0;
-};
-
-// The Player class encapsulates player properties and behaviors, such as movement and coin collection, while hiding internal details like stepSize and moveTimer from external access.
-```
-- [x] Useful and correct inheritance - _Explain why_
-```cpp
-class Chest : public GameItem {
-    // ...
-};
-
-// The Chest class inherits from GameItem, demonstrating inheritance by extending the base class's functionality, such as implementing the interact method.
-```
-- [x] Useful and correct polymorphism - _Explain why_
-```cpp
-void interact(Player* player) override;
-
-// Polymorphism is evident in the use of interact method. Different game items (Chest, Hole) have their unique implementations of this method, allowing dynamic behavior during gameplay.
-```
-- [x] Useful and correct object composition - _Explain why_
-```cpp
-class MazeView : public QGraphicsView {
-    // ...
-private:
-    Player* player;
-    const Maze& maze;
-    // ...
-};
-
-// MazeView is composed of Player and Maze objects, demonstrating object composition by combining multiple objects to create a more complex entity.
-```
-- [x] Useful and correct base class
-```cpp
-class GameItem : public QGraphicsPixmapItem {
-    public:
-        virtual void interact(Player* player) = 0;
-};
-
-// The GameItem class is a useful and correct base class as it provides a foundational interface (interact) for derived classes (Chest, Hole) to implement. This base class establishes a common contract for all game items in your maze game, ensuring a consistent interaction mechanism.
-```
-- [x] Useful and correct abstract base class
-```cpp
-class GameItem : public QGraphicsPixmapItem {
-    // ...
-};
-
-// GameItem is an abstract base class, as evidenced by its pure virtual function interact. It cannot be instantiated on its own and requires derived classes to provide concrete implementations of interact, thus enforcing a structure while allowing flexibility in derived classes.
-```
-- [x] Useful and correct virtual function
-```cpp
-// In GameItem
-virtual void interact(Player* player) = 0;
-
-// In Chest
-void interact(Player* player) override; 
-
-// The interact function in GameItem is a virtual function, correctly designed to be overridden by derived classes. This design allows different GameItem derivatives like Chest and Hole to have their own interaction logic with the player, showcasing polymorphism.
-```
-- [x] No mistake in object-oriented programming
-
-## Additional - General
+## General
 - [ ] Clean main
 - [ ] No globals, but statics if needed
 - [ ] Correct protections
 - [ ] Maintainability by clean uniform code style and good function naming and/or comments everywhere
 - [x] Separate header files
-- [ ] One complete project that compiles and does not crash
-- [ ] Fully working project
-- [ ] Sufficient git commits (± weekly)
-- [ ] Correct files on git
+- [x] One complete project that compiles and does not crash
+- [x] Fully working project
+- [x] Sufficient git commits (± weekly)
+- [x] Correct files on git
 - [ ] Working build manual as readme on GitHub
 
 ## Object-Oriented Programming (OOP)
