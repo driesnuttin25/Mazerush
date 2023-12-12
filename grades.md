@@ -1,8 +1,8 @@
 # Grading System
 
 ### Grades
-`[######----------------------------------] 26%`
-_13/50 points gathered_
+`[#######---------------------------------] 28%`
+_14/50 points gathered_
 
 
 
@@ -37,7 +37,14 @@ Player::Player(QGraphicsItem* parent) : QGraphicsRectItem(parent), stepSize(3), 
 ```
 - [ ] Constructor forwarding
 - [ ] Useful proven (dynamic) polymorphism
-- [ ] Useful usage of "this"
+- [x] Useful usage of "this"
+``` cpp
+QGraphicsScene* newScene = new QGraphicsScene(this);
+    this->setScene(newScene);
+    this->mazeHeight = maze->height;
+
+// this is used as the parent for the new QGraphicsScene object, indicating ownership and ensuring proper object lifetime management. 
+```
 - [x] Useful member function
 ```cpp
 void Player::move() {...}
