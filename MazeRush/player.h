@@ -19,11 +19,15 @@ public:
 
     void addCoin();
     int getCoins() const;
+
+    int currentLevel = 1;
+    void resetState();
 public slots:
     void move();
 
 signals:
     void chestCollected(int x, int y);
+    void levelCompleted();
 
 private:
     float stepSize;

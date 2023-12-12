@@ -3,6 +3,7 @@
 #include "Chest.h"
 #include "Hole.h"
 #include "Player.h"
+#include "qapplication.h"
 #include <QGraphicsRectItem>
 #include <QBrush>
 #include <QGraphicsPixmapItem>
@@ -10,11 +11,21 @@
 
 MazeView::MazeView(Maze* maze, Player* player, int cellSize, QWidget* parent)
     : QGraphicsView(parent), player(player), maze(*maze), cellSize(cellSize) {
+    qDebug() << "MazeView Constructor called";
     // Initialize the scene
     QGraphicsScene* newScene = new QGraphicsScene(this);
     this->setScene(newScene);
     this->mazeHeight = maze->height;
     drawMaze(); // Now draw the maze
+    qDebug() << "DrawMaze completed";
+    gameTimer = new QTimer(this);
+    connect(gameTimer, &QTimer::timeout, this, &MazeView::updateTimer);
+    gameTimer->start(1000); // Timer ticks every second
+
+    timerLabel = new QLabel(this);
+    timerLabel->setGeometry(10, 10, 100, 30); // Set position and size of the label
+    updateTimer(); // Initialize the timer display
+    qDebug() << "Timer setup completed";
 }
 
 void MazeView::drawMaze() {
@@ -68,4 +79,20 @@ void MazeView::addCoinGraphic() {
     scene()->addItem(newCoin);
 
     coinGraphics.push_back(newCoin); // Add to the list of coin graphics
+}
+
+void MazeView::updateTimer() {
+    if (remainingTime > 0) {
+        remainingTime--;
+        timerLabel->setText("Time: " + QString::number(remainingTime));
+    } else {
+        gameTimer->stop();
+        QApplication::quit(); // End the game
+    }
+}
+
+void MazeView::resetTimer() {
+    remainingTime = 60; // Reset to 60 seconds
+    updateTimer(); // Update the timer display
+    gameTimer->start(1000); // Restart the timer
 }

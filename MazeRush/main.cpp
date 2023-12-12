@@ -4,46 +4,70 @@
 #include "MazeView.h"
 #include "Player.h"
 
-// Function to start the game
-void startGame(MazeView** view, Maze** maze, Player** player, int mazeWidth, int mazeHeight, int cellSize) {
-    if (*maze != nullptr) {
-        delete *maze;
-    }
-    if (*player != nullptr) {
-        delete *player;
-    }
-    if (*view != nullptr) {
-        delete *view;
+void startGame(int mazeWidth, int mazeHeight, int cellSize, int& currentLevel, MazeView*& view, Maze*& maze, Player*& player) {
+    qDebug() << "Starting new game level:" << currentLevel;
+
+    if (view != nullptr) {
+        if (player && view->scene() == player->scene()) {
+            view->scene()->removeItem(player); // Explicitly remove player from the scene
+        }
+        delete view;
+        view = nullptr;
     }
 
-    *maze = new Maze(mazeWidth, mazeHeight); // Maze object
-    *player = new Player();
+    delete maze; // Safe to delete as nullptr deletion is a no-op
 
-    *view = new MazeView(*maze, *player, cellSize);
-    (*view)->scene()->addItem(*player);
-    (*player)->setPos(cellSize, cellSize);
+    // If player exists, reset its state, otherwise create a new player
+    if (player != nullptr) {
+        player->resetState(); // Reset player's state for the new level
+    } else {
+        player = new Player();
+    }
 
-    (*view)->show();
+    maze = new Maze(mazeWidth, mazeHeight);
+    view = new MazeView(maze, player, cellSize);
+    qDebug() << "Maze and Mazeview completed";
+
+    QObject::disconnect(player, &Player::levelCompleted, nullptr, nullptr); // Disconnect previous connections
+    QObject::connect(player, &Player::levelCompleted, [mazeWidth, mazeHeight, cellSize, &currentLevel, &view, &maze, &player]() mutable {
+        qDebug() << "Level completed, moving to next level";
+        currentLevel++;
+        int newWidth = 7 + 2 * (currentLevel - 1);
+        int newHeight = newWidth;
+        startGame(newWidth, newHeight, cellSize, currentLevel, view, maze, player);
+    });
+    qDebug() << "Re-adding player to maze";
+    view->scene()->addItem(player); // Re-add player to the scene
+    qDebug() << "Player in";
+    player->setPos(cellSize, cellSize); // Ensure player's position is reset
+    qDebug() << "Player position check done";
+    view->show();
+    qDebug() << "View shown";
 }
+
+
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
+    qDebug() << "Application started";
 
-    int mazeWidth = 19; // Width of the maze in cells
-    int mazeHeight = 19; // Height of the maze in cells
-    int cellSize = 50; // Size of each cell in pixels
+    int initialMazeWidth = 7;
+    int initialMazeHeight = 7;
+    int cellSize = 50;
+    int currentLevel = 1;
 
-    TitleScreen titleScreen;
     MazeView* view = nullptr;
     Maze* maze = nullptr;
     Player* player = nullptr;
 
+    TitleScreen titleScreen;
     QObject::connect(&titleScreen, &TitleScreen::startGame, [&](){
-        startGame(&view, &maze, &player, mazeWidth, mazeHeight, cellSize);
+        qDebug() << "Start game signal received";
+        startGame(initialMazeWidth, initialMazeHeight, cellSize, currentLevel, view, maze, player);
         titleScreen.hide();
     });
 
     titleScreen.show();
-
+    qDebug() << "Title screen shown";
     return app.exec();
 }

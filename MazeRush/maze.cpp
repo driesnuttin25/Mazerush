@@ -8,9 +8,16 @@
 
 Maze::Maze(int width, int height, QObject* parent)
     : QObject(parent), width(width), height(height), maze(height, std::vector<int>(width, 1)) {
+    qDebug() << "Maze Constructor called";
+    if (width <= 0 || height <= 0) {
+        throw std::runtime_error("Invalid maze dimensions");
+    }
+    maze = std::vector<std::vector<int>>(height, std::vector<int>(width, 1));
+    qDebug() << "GenerateMaze function call";
     generateMaze();
+    qDebug() << "GenerateMaze Completed";
     placeChests(5);
-    placeHoles(5);
+    placeHoles(0);
 }
 
 const std::vector<std::vector<int>>& Maze::getLayout() const {
@@ -18,8 +25,11 @@ const std::vector<std::vector<int>>& Maze::getLayout() const {
 }
 
 void Maze::generateMaze() {
+    qDebug() << "Generating maze";
     carveMazePath(1, 1);
+    qDebug() << "Maze generation finished";
 }
+
 
 void Maze::carveMazePath(int x, int y) {
     std::mt19937 gen(static_cast<unsigned int>(time(nullptr)));

@@ -9,6 +9,7 @@
 bool keyHeld = false;
 
 Player::Player(QGraphicsItem* parent) : QGraphicsRectItem(parent), stepSize(3), playerSize(20, 20) {
+    qDebug() << "Player Constructor called";
     // Player position and height!
     setRect(0, 0, playerSize.width(), playerSize.height());
     qDebug() << "Player size after setRect:" << rect().size();
@@ -93,10 +94,23 @@ void Player::move() {
 
 void Player::addCoin() {
     coins++;
-    qDebug() << "Coins:" << coins;
-
+    qDebug() << "Coin added. Total coins:" << coins;
+    if (coins == 5) {  // Assuming you have a constant or variable for this
+        qDebug() << "All coins collected. Level completed.";
+        emit levelCompleted();
+    }
 }
+
+
+
 
 int Player::getCoins() const {
     return coins;
+}
+
+
+void Player::resetState() {
+    setPos(1, 1); // Reset position
+    coins = 0;    // Reset coins
+    // Any other state reset needed
 }
