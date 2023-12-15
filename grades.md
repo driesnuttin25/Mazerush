@@ -1,8 +1,8 @@
 # Grading System
 
 ### Grades
-`[#######################---------------------------] 46%`
-_23/50 points gathered_
+`[#######################---------------------------] 48%`
+_24/50 points gathered_
 
 
 
@@ -191,7 +191,7 @@ signals:
 - [ ] Test-driven development (written test plan or unit tests)
 - [ ] Solve bug ticket (with pull request or commit message issue link and issue branch)
 - [ ] Report a bug ticket on another project
-- [ ] Usage of a GUI
+- [x] Usage of a GUI
 - [ ] Usage of OpenGL or other 3D engine
 - [ ] Useful usage of an external library (not Qt)
 - [ ] Project that communicates (e.g., UART, BT) with hardware
