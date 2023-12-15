@@ -137,7 +137,12 @@ QTimer::singleShot(500, [coin](){...});
 #include <QBrush>
 #include <QGraphicsPixmapItem>
 ```
-- [ ] Useful usage of signals/slots
+- [x] Useful usage of signals/slots
+``` cpp
+signals:
+    void chestCollected(int x, int y);
+    void levelCompleted();
+```
 - [ ] Test-driven development (written test plan or unit tests)
 - [ ] Solve bug ticket (with pull request or commit message issue link and issue branch)
 - [ ] Report a bug ticket on another project
