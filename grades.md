@@ -1,14 +1,14 @@
 # Grading System
 
 ### Grades
-`[#######---------------------------------] 28%`
-_14/50 points gathered_
+`[#######---------------------------------] 32%`
+_16/50 points gathered_
 
 
 
 ## General
 - [ ] Clean main
-- [ ] No globals, but statics if needed
+- [x] No globals, but statics if needed
 - [ ] Correct protections
 - [ ] Maintainability by clean uniform code style and good function naming and/or comments everywhere
 - [x] Separate header files
