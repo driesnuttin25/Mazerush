@@ -8,45 +8,44 @@
 void startGame(int mazeWidth, int mazeHeight, int cellSize, int& currentLevel, MazeView*& view, Maze*& maze, Player*& player) {
     qDebug() << "Starting new game level:" << currentLevel;
 
-    // Clear the scene if it exists, but do not delete the view
+    // Delete and reset existing objects if they exist
     if (view) {
         view->scene()->clear();
+        delete view;
+        view = nullptr;
     }
 
-    // Reset and reuse the existing Maze and Player objects
-    if (!maze) {
-        maze = new Maze(mazeWidth, mazeHeight);
-    } else {
-        maze->reset(mazeWidth, mazeHeight); // Add a reset method to Maze class
+    if (maze) {
+        delete maze;
+        maze = nullptr;
     }
 
-    if (!player) {
-        player = new Player();
-    } else {
-        player->resetState(); // Reset player's state for the new level
+    if (player) {
+        delete player;
+        player = nullptr;
     }
 
-    if (!view) {
-        view = new MazeView(maze, player, cellSize);
-    } else {
-        view->setMaze(maze); // Add a method in MazeView to update the maze reference
-        view->drawMaze();    // Redraw the maze
-    }
+    // Create new instances of Maze, Player, and MazeView
+    maze = new Maze(mazeWidth, mazeHeight);
+    player = new Player();
+    view = new MazeView(maze, player, cellSize);
 
-    // Update connections and scene
+    // Setup the MazeView and its scene
+    view->setMaze(maze);
+    view->drawMaze();
+    view->scene()->addItem(player);
+    player->setPos(cellSize, cellSize); // Set initial player position
+    view->show();
+
+    // Connect the levelCompleted signal to start a new level
     QObject::disconnect(player, &Player::levelCompleted, nullptr, nullptr);
-    QObject::connect(player, &Player::levelCompleted, [  cellSize, &currentLevel, &view, &maze, &player]() mutable {
+    QObject::connect(player, &Player::levelCompleted, [&mazeWidth, &mazeHeight, cellSize, &currentLevel, &view, &maze, &player]() mutable {
         currentLevel++;
         int newWidth = 7 + 2 * (currentLevel - 1);
         int newHeight = newWidth;
         startGame(newWidth, newHeight, cellSize, currentLevel, view, maze, player);
     });
-
-    view->scene()->addItem(player); // Re-add player to the scene
-    player->setPos(cellSize, cellSize);
-    view->show();
 }
-
 
 
 

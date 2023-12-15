@@ -97,7 +97,7 @@ void Player::keyReleaseEvent(QKeyEvent *event) {
 
 
 void Player::move() {
-    qDebug() << "Move method called";
+    //qDebug() << "Move method called";
 
     // Initialize movement deltas
     int dx = 0;
