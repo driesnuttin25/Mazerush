@@ -1,8 +1,8 @@
 # Grading System
 
 ### Grades
-`[######################----------------------------] 44%`
-_22/50 points gathered_
+`[#######################---------------------------] 46%`
+_23/50 points gathered_
 
 
 
@@ -16,7 +16,7 @@ _22/50 points gathered_
 - [x] Fully working project
 - [x] Sufficient git commits (± weekly)
 - [x] Correct files on git
-- [ ] Working build manual as readme on GitHub
+- [x] Working build manual as readme on GitHub
 
 ## Object-Oriented Programming (OOP)
 - [ ] At least 2 default constructors
