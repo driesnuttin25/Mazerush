@@ -1,16 +1,24 @@
-// Player.h
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
 #include <QKeyEvent>
 #include <QObject>
 #include <QTimer>
 #include <QSet>
 
-class Player : public QObject, public QGraphicsRectItem {
-    Q_OBJECT
+// If Direction enum is specific to Player, include it inside the Player class.
+// Otherwise, declare it outside if it's used by other classes too.
+enum class Direction : unsigned char {
+    None = 0,
+    Up,
+    Down,
+    Left,
+    Right
+};
 
+class Player : public QObject, public QGraphicsPixmapItem {
+    Q_OBJECT
 public:
     Player(QGraphicsItem* parent = nullptr);
     void keyPressEvent(QKeyEvent *event) override;
@@ -20,8 +28,9 @@ public:
     void addCoin();
     int getCoins() const;
 
-    int currentLevel = 1;
     void resetState();
+    void updateSprite(const QString &direction);
+    bool keyHeld = false;
 public slots:
     void move();
 
@@ -34,8 +43,14 @@ private:
     QSizeF playerSize;
     QTimer* moveTimer;
     QSet<int> pressedKeys;
-    int coins = 0;
+    unsigned char coins = 0;
 
+    QPixmap spriteUp;
+    QPixmap spriteDown;
+    QPixmap spriteLeft;
+    QPixmap spriteRight;
+
+    Direction currentDirection = Direction::None;
 };
 
 #endif // PLAYER_H

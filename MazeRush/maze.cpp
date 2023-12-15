@@ -24,6 +24,15 @@ const std::vector<std::vector<int>>& Maze::getLayout() const {
     return maze;
 }
 
+void Maze::reset(int newWidth, int newHeight) {
+    width = newWidth;
+    height = newHeight;
+    maze = std::vector<std::vector<int>>(height, std::vector<int>(width, 1));
+    generateMaze();
+    placeChests(5);
+    placeHoles(0);
+}
+
 void Maze::generateMaze() {
     qDebug() << "Generating maze";
     carveMazePath(1, 1);
@@ -32,6 +41,7 @@ void Maze::generateMaze() {
 
 
 void Maze::carveMazePath(int x, int y) {
+    qDebug() << "Carving maze path";
     std::mt19937 gen(static_cast<unsigned int>(time(nullptr)));
     std::stack<std::pair<int, int>> stack;
     stack.push({x, y});
@@ -59,6 +69,7 @@ void Maze::carveMazePath(int x, int y) {
             }
         }
     }
+    qDebug() << "done carving maze path";
 }
 
 void Maze::placeHoles(int numberOfHoles) {

@@ -16,6 +16,7 @@ public:
     int width, height;
     void placeChests(int numberOfChests);
     void placeHoles(int numberOfHoles);
+    void reset(int newWidth, int newHeight);
 
 
 private:

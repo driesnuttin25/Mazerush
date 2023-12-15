@@ -1,95 +1,141 @@
 // Player.cpp
 #include "Player.h"
-#include "Chest.h"
-#include "GameItem.h"
 #include <QGraphicsScene>
 #include <QBrush>
 #include <QDebug>
 
-bool keyHeld = false;
+Player::Player(QGraphicsItem* parent) : QGraphicsPixmapItem(parent), stepSize(3), playerSize(20, 20) {
+    // Load the sprites
+    spriteUp = QPixmap(":/assets/mouse_up.png");
+    spriteDown = QPixmap(":/assets/mouse_down.png");
+    spriteLeft = QPixmap(":/assets/mouse_left.png");
+    spriteRight = QPixmap(":/assets/mouse_right.png");
 
-Player::Player(QGraphicsItem* parent) : QGraphicsRectItem(parent), stepSize(3), playerSize(20, 20) {
-    qDebug() << "Player Constructor called";
-    // Player position and height!
-    setRect(0, 0, playerSize.width(), playerSize.height());
-    qDebug() << "Player size after setRect:" << rect().size();
-
-    QBrush brush(Qt::blue);  // Player color
-    setBrush(brush);
+    // Set the initial sprite and size
+    setPixmap(spriteUp.scaled(playerSize.toSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    setPos(1, 1); // Starting position at (1,1) in the maze
 
     // Initialize the timer
     moveTimer = new QTimer(this);
-    connect(moveTimer, SIGNAL(timeout()), this, SLOT(move()));
-
-    // Set the initial position
-    setPos(1, 1);   // Starting position at (1,1) in the maze
+    connect(moveTimer, &QTimer::timeout, this, &Player::move);
+    moveTimer->start(15); // Start the timer with a 15ms interval
 
     // Make the player focusable to receive key events
     setFlag(QGraphicsItem::ItemIsFocusable);
     setFocus();
 }
 
+
+void Player::updateSprite(const QString &direction) {
+    if (direction == "up") {
+        setPixmap(spriteUp.scaled(playerSize.toSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    } else if (direction == "down") {
+        setPixmap(spriteDown.scaled(playerSize.toSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    } else if (direction == "left") {
+        setPixmap(spriteLeft.scaled(playerSize.toSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    } else if (direction == "right") {
+        setPixmap(spriteRight.scaled(playerSize.toSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    }
+}
+
 void Player::keyPressEvent(QKeyEvent *event) {
     if (!pressedKeys.contains(event->key())) {
         pressedKeys.insert(event->key()); // Add the key to the set of pressed keys
-        if (!moveTimer->isActive()) {
-            moveTimer->start(15); // Check that this line is correctly executed
+        switch (event->key()) {
+        case Qt::Key_Up:
+            currentDirection = Direction::Up;
+            updateSprite("up");
+            break;
+        case Qt::Key_Down:
+            currentDirection = Direction::Down;
+            updateSprite("down");
+            break;
+        case Qt::Key_Left:
+            currentDirection = Direction::Left;
+            updateSprite("left");
+            break;
+        case Qt::Key_Right:
+            currentDirection = Direction::Right;
+            updateSprite("right");
+            break;
+        default:
+            break;
         }
     }
     event->accept();
 }
 
+
 void Player::keyReleaseEvent(QKeyEvent *event) {
     pressedKeys.remove(event->key()); // Remove the key from the set
-    if (pressedKeys.isEmpty() && moveTimer->isActive()) {
-        moveTimer->stop(); // This should only stop the timer if no keys are pressed
+    if (pressedKeys.isEmpty()) {
+        currentDirection = Direction::None;
+    } else {
+        // Update direction and sprite based on the remaining pressed keys, if any
+        if (pressedKeys.contains(Qt::Key_Up)) {
+            currentDirection = Direction::Up;
+            updateSprite("up");
+        } else if (pressedKeys.contains(Qt::Key_Down)) {
+            currentDirection = Direction::Down;
+            updateSprite("down");
+        } else if (pressedKeys.contains(Qt::Key_Left)) {
+            currentDirection = Direction::Left;
+            updateSprite("left");
+        } else if (pressedKeys.contains(Qt::Key_Right)) {
+            currentDirection = Direction::Right;
+            updateSprite("right");
+        }
     }
     event->accept();
 }
 
 
-
-QSizeF Player::getPlayerSize() const {
-    return playerSize;
-}
 
 
 void Player::move() {
     qDebug() << "Move method called";
 
+    // Initialize movement deltas
     int dx = 0;
     int dy = 0;
-    if (pressedKeys.contains(Qt::Key_Left)) dx -= stepSize;
-    if (pressedKeys.contains(Qt::Key_Right)) dx += stepSize;
-    if (pressedKeys.contains(Qt::Key_Up)) dy -= stepSize;
-    if (pressedKeys.contains(Qt::Key_Down)) dy += stepSize;
 
+    // Update the player's sprite and movement based on the key press
+    switch (currentDirection) {
+    case Direction::Up:
+        dy = -stepSize;
+        break;
+    case Direction::Down:
+        dy = stepSize;
+        break;
+    case Direction::Left:
+        dx = -stepSize;
+        break;
+    case Direction::Right:
+        dx = stepSize;
+        break;
+    default:
+        break;
+    }
+
+    // Calculate the new position
     QPointF newPos = pos() + QPointF(dx, dy);
-    QRectF smallerRect = rect().adjusted(2, 2, -2, -2);
-    QList<QGraphicsItem*> itemsAtNewPos = scene()->items(QRectF(newPos + smallerRect.topLeft(), smallerRect.size()));
 
-    bool collisionDetected = false;
+    // Check collision only if there's a movement
+    if (dx != 0 || dy != 0) {
+        QList<QGraphicsItem*> collidingItems = scene()->items(QRectF(newPos, playerSize.toSize()));
+        bool collisionDetected = std::any_of(collidingItems.begin(), collidingItems.end(), [this](QGraphicsItem* item) {
+            return item != this && typeid(*item) != typeid(Player);
+        });
 
-    for (QGraphicsItem* item : itemsAtNewPos) {
-        if (item != this) {
-            GameItem* gameItem = dynamic_cast<GameItem*>(item);
-            if (gameItem) {
-                gameItem->interact(this);
-                continue;
-            } else {
-                collisionDetected = true;
-                break;
-            }
+        if (!collisionDetected) {
+            setPos(newPos);
+            qDebug() << "Moved to:" << newPos;
+        } else {
+            qDebug() << "Movement blocked by collision";
         }
     }
-
-    if (!collisionDetected) {
-        setPos(newPos);
-        qDebug() << "Moved to:" << newPos;
-    } else {
-        qDebug() << "Movement blocked by collision";
-    }
 }
+
 
 
 void Player::addCoin() {

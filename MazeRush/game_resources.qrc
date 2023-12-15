@@ -2,8 +2,12 @@
     <qresource prefix="/assets">
         <file>wall.png</file>
         <file>chest.png</file>
-        <file>coin.png</file>
         <file>hole.png</file>
         <file>TitleScreen.png</file>
+        <file>cheese.png</file>
+        <file>mouse_down.png</file>
+        <file>mouse_left.png</file>
+        <file>mouse_right.png</file>
+        <file>mouse_up.png</file>
     </qresource>
 </RCC>

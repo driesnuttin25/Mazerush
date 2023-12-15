@@ -10,7 +10,7 @@
 
 
 MazeView::MazeView(Maze* maze, Player* player, int cellSize, QWidget* parent)
-    : QGraphicsView(parent), player(player), maze(*maze), cellSize(cellSize) {
+    : QGraphicsView(parent), player(player), maze(maze), cellSize(cellSize) {
     qDebug() << "MazeView Constructor called";
     // Initialize the scene
     QGraphicsScene* newScene = new QGraphicsScene(this);
@@ -31,14 +31,18 @@ MazeView::MazeView(Maze* maze, Player* player, int cellSize, QWidget* parent)
 void MazeView::drawMaze() {
     // Set the background color
     setBackgroundBrush(QBrush(Qt::gray));
-
-    auto layout = maze.getLayout();
+    if (!maze) {
+        qDebug() << "Error: Maze not set!";
+        return;
+    }
+    auto layout = maze->getLayout();
     qDebug() << "Drawing maze with layout size:" << layout.size();
 
-    if (!this->scene()) {
+    if (this->scene() == nullptr) {
         qDebug() << "Error: Scene not initialized!";
         return;
     }
+
 
     QPixmap wallTexture(":/assets/wall.png"); // Load the wall texture
 
@@ -68,7 +72,7 @@ void MazeView::drawMaze() {
 }
 
 void MazeView::addCoinGraphic() {
-    QPixmap coinPixmap(":/assets/coin.png");
+    QPixmap coinPixmap(":/assets/cheese.png");
     int coinSize = 40; // Size of the coin graphic
     QPixmap scaledCoinPixmap = coinPixmap.scaled(coinSize, coinSize, Qt::KeepAspectRatio);
 
@@ -79,6 +83,11 @@ void MazeView::addCoinGraphic() {
     scene()->addItem(newCoin);
 
     coinGraphics.push_back(newCoin); // Add to the list of coin graphics
+}
+
+void MazeView::setMaze(Maze* newMaze) {
+    maze = newMaze;
+    drawMaze(); // Redraw the maze with the new layout
 }
 
 void MazeView::updateTimer() {

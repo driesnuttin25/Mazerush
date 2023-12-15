@@ -17,17 +17,17 @@ public:
     void addCoinGraphic();
     void resetTimer();
 
+    void drawMaze();
+    void setMaze(Maze* newMaze);
 private:
     Player* player;
-    const Maze& maze;
+    Maze* maze;
     int cellSize;
     std::vector<QGraphicsPixmapItem*> coinGraphics; // Container for coin graphics
     int mazeHeight; // Height of the maze in cells
     QTimer* gameTimer; // Timer for the game duration
     QLabel* timerLabel; // Label to display the remaining time
     int remainingTime = 60; // 60 seconds total time
-
-    void drawMaze();
 
 private slots:
     void updateTimer();
