@@ -1,8 +1,8 @@
 # Grading System
 
 ### Grades
-`[########--------------------------------] 32%`
-_17/50 points gathered_
+`[#########-------------------------------] 36%`
+_18/50 points gathered_
 
 
 
@@ -131,7 +131,12 @@ QTimer::singleShot(500, [coin](){...});
 - [ ] Useful usage of threads
 
 ## Extension
-- [ ] Useful Qt class
+- [x] Useful Qt class
+``` cpp
+#include <QGraphicsRectItem>
+#include <QBrush>
+#include <QGraphicsPixmapItem>
+```
 - [ ] Useful usage of signals/slots
 - [ ] Test-driven development (written test plan or unit tests)
 - [ ] Solve bug ticket (with pull request or commit message issue link and issue branch)
