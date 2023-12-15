@@ -1,8 +1,8 @@
 # Grading System
 
 ### Grades
-`[#######################---------------------------] 48%`
-_24/50 points gathered_
+`[#########################-------------------------] 50%`
+_25/50 points gathered_
 
 
 
@@ -97,11 +97,31 @@ enum class Direction : unsigned char {
 - [ ] At least 4 useful bool
 - [x] Dynamic memory allocation (new)
 ``` cpp
-Player* player = new Player();
+maze = new Maze(mazeWidth, mazeHeight);
+player = new Player();
+view = new MazeView(maze, player, cellSize);
 
 // Dynamic memory allocation is used for creating Player objects, allowing for flexible memory management and the creation of objects whose lifetime extends beyond the scope in which they are created.
 ```
-- [ ] Dynamic memory removing (delete)
+- [x] Dynamic memory removing (delete)
+``` cpp
+    if (view) {
+        view->scene()->clear();
+        delete view;
+        view = nullptr;
+    }
+
+    if (maze) {
+        delete maze;
+        maze = nullptr;
+    }
+
+    if (player) {
+        delete player;
+        player = nullptr;
+    }
+
+```
 - [ ] 2 useful (modern) call-by-references
 - [x] Useful string class usage
 ``` cpp
