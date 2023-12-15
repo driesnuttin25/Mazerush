@@ -1,8 +1,8 @@
 # Grading System
 
 ### Grades
-`[#######---------------------------------] 32%`
-_16/50 points gathered_
+`[########--------------------------------] 32%`
+_17/50 points gathered_
 
 
 
@@ -110,7 +110,16 @@ std::vector<std::vector<int>> maze;
 
 // The std::vector container is used in the Maze class to store the layout of the maze, showcasing effective use of dynamic arrays for flexible and efficient data storage.
 ```
-- [ ] Useful usage of nullptr
+- [x] Useful usage of nullptr
+``` cpp
+
+    if (this->scene() == nullptr) {
+        qDebug() << "Error: Scene not initialized!";
+        return;
+    }
+
+// Clean usage of a nullptr to make it clear that you are checking if the scene is set or not
+```
 - [ ] Useful usage of (modern) file-I/O
 - [ ] Useful exception handling
 - [x] Useful usage of lambda function
