@@ -1,8 +1,8 @@
 # Grading System
 
 ### Grades
-`[####################------------------------------] 40%`
-_20/50 points gathered_
+`[######################----------------------------] 44%`
+_22/50 points gathered_
 
 
 
@@ -103,7 +103,22 @@ Player* player = new Player();
 ```
 - [ ] Dynamic memory removing (delete)
 - [ ] 2 useful (modern) call-by-references
-- [ ] Useful string class usage
+- [x] Useful string class usage
+``` cpp
+        std::string line;
+        while (getline(file, line)) {
+            if (line.empty() || line[0] == '#' || line[0] == '[') continue; // Skip comments and sections
+            std::istringstream iss(line);
+            std::string key;
+            int value;
+            if (getline(iss, key, '=') && iss >> value) {
+                config[key] = value;
+            }
+        }
+    }
+
+// String usage for parsing data
+``` 
 - [x] Useful container class
 ``` cpp
 std::vector<std::vector<int>> maze;
@@ -120,7 +135,31 @@ std::vector<std::vector<int>> maze;
 
 // Clean usage of a nullptr to make it clear that you are checking if the scene is set or not
 ```
-- [ ] Useful usage of (modern) file-I/O
+- [x] Useful usage of (modern) file-I/O
+``` cpp
+        std::string line;
+        while (getline(file, line)) {
+            if (line.empty() || line[0] == '#' || line[0] == '[') continue; // Skip comments and sections
+            std::istringstream iss(line);
+            std::string key;
+            int value;
+            if (getline(iss, key, '=') && iss >> value) {
+                config[key] = value;
+            }
+        }
+    }
+
+// config.ini
+
+maze_width=19
+maze_height=19
+chests=5
+holes=3
+player_speed=20
+
+
+// Usage of ini file for the settings of the game.
+```
 - [x] Useful exception handling
 ``` cpp
 if (width <= 0 || height <= 0) {
