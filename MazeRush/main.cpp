@@ -1,5 +1,6 @@
 #include <QApplication>
 #include "TitleScreen.h"
+#include "GameConfig.h"
 #include "Maze.h"
 #include "MazeView.h"
 #include "Player.h"
@@ -53,8 +54,10 @@ int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
     qDebug() << "Application started";
 
-    int initialMazeWidth = 19;
-    int initialMazeHeight = 19;
+    GameConfig config("C:/Users/dries/OneDrive/Music/Documents/TcXaeShell/Tc2_DMX_Sample_DMX_Master/Desktop/Cpp/MazeRush/config.ini");
+
+    int initialMazeWidth = config.get("maze_width");
+    int initialMazeHeight = config.get("maze_height");
     int cellSize = 50;
     int currentLevel = 1;
 

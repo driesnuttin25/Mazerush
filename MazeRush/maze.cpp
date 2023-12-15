@@ -1,6 +1,7 @@
 // Maze.cpp
 #include "Maze.h"
 #include "Hole.h"
+#include "GameConfig.h"
 #include <QDebug>
 #include <random>
 #include <ctime>
@@ -16,8 +17,11 @@ Maze::Maze(int width, int height, QObject* parent)
     qDebug() << "GenerateMaze function call";
     generateMaze();
     qDebug() << "GenerateMaze Completed";
-    placeChests(5);
-    placeHoles(0);
+    GameConfig config("C:/Users/dries/OneDrive/Music/Documents/TcXaeShell/Tc2_DMX_Sample_DMX_Master/Desktop/Cpp/MazeRush/config.ini");
+    int chests = config.get("chests");
+    int holes = config.get("holes");
+    placeChests(chests);
+    placeHoles(holes);
 }
 
 const std::vector<std::vector<int>>& Maze::getLayout() const {

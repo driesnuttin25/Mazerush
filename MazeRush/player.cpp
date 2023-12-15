@@ -1,5 +1,6 @@
 // Player.cpp
 #include "Player.h"
+#include "GameConfig.h"
 #include <QGraphicsScene>
 #include <QBrush>
 #include <QDebug>
@@ -15,10 +16,13 @@ Player::Player(QGraphicsItem* parent) : QGraphicsPixmapItem(parent), stepSize(3)
     setPixmap(spriteUp.scaled(playerSize.toSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
     setPos(1, 1); // Starting position at (1,1) in the maze
 
+    GameConfig config("C:/Users/dries/OneDrive/Music/Documents/TcXaeShell/Tc2_DMX_Sample_DMX_Master/Desktop/Cpp/MazeRush/config.ini");
+    int playerSpeed = config.get("player_speed");
+
     // Initialize the timer
     moveTimer = new QTimer(this);
     connect(moveTimer, &QTimer::timeout, this, &Player::move);
-    moveTimer->start(15); // Start the timer with a 15ms interval
+    moveTimer->start(playerSpeed); // Start the timer with a 15ms interval
 
     // Make the player focusable to receive key events
     setFlag(QGraphicsItem::ItemIsFocusable);

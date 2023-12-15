@@ -20,6 +20,7 @@ SOURCES += \
 
 HEADERS += \
     Chest.h \
+    GameConfig.h \
     GameItem.h \
     Hole.h \
     Player.h \
@@ -36,3 +37,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     game_resources.qrc
+
+DISTFILES += \
+    config.ini
