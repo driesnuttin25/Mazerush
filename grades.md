@@ -121,7 +121,13 @@ std::vector<std::vector<int>> maze;
 // Clean usage of a nullptr to make it clear that you are checking if the scene is set or not
 ```
 - [ ] Useful usage of (modern) file-I/O
-- [ ] Useful exception handling
+- [x] Useful exception handling
+``` cpp
+if (width <= 0 || height <= 0) {
+        throw std::runtime_error("Invalid maze dimensions");
+    }
+// This ensures the Maze object isn't constructed with invalid dimensions
+```
 - [x] Useful usage of lambda function
 ``` cpp
 QTimer::singleShot(500, [coin](){...});
