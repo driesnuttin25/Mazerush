@@ -1,8 +1,8 @@
 # Grading System
 
 ### Grades
-`[####################------------------------------] 40%`
-_20/50 points gathered_
+`[#########################-------------------------] 50%`
+_25/50 points gathered_
 
 
 
@@ -16,7 +16,7 @@ _20/50 points gathered_
 - [x] Fully working project
 - [x] Sufficient git commits (± weekly)
 - [x] Correct files on git
-- [ ] Working build manual as readme on GitHub
+- [x] Working build manual as readme on GitHub
 
 ## Object-Oriented Programming (OOP)
 - [ ] At least 2 default constructors
@@ -97,13 +97,48 @@ enum class Direction : unsigned char {
 - [ ] At least 4 useful bool
 - [x] Dynamic memory allocation (new)
 ``` cpp
-Player* player = new Player();
+maze = new Maze(mazeWidth, mazeHeight);
+player = new Player();
+view = new MazeView(maze, player, cellSize);
 
 // Dynamic memory allocation is used for creating Player objects, allowing for flexible memory management and the creation of objects whose lifetime extends beyond the scope in which they are created.
 ```
-- [ ] Dynamic memory removing (delete)
+- [x] Dynamic memory removing (delete)
+``` cpp
+    if (view) {
+        view->scene()->clear();
+        delete view;
+        view = nullptr;
+    }
+
+    if (maze) {
+        delete maze;
+        maze = nullptr;
+    }
+
+    if (player) {
+        delete player;
+        player = nullptr;
+    }
+
+```
 - [ ] 2 useful (modern) call-by-references
-- [ ] Useful string class usage
+- [x] Useful string class usage
+``` cpp
+        std::string line;
+        while (getline(file, line)) {
+            if (line.empty() || line[0] == '#' || line[0] == '[') continue; // Skip comments and sections
+            std::istringstream iss(line);
+            std::string key;
+            int value;
+            if (getline(iss, key, '=') && iss >> value) {
+                config[key] = value;
+            }
+        }
+    }
+
+// String usage for parsing data
+``` 
 - [x] Useful container class
 ``` cpp
 std::vector<std::vector<int>> maze;
@@ -120,7 +155,31 @@ std::vector<std::vector<int>> maze;
 
 // Clean usage of a nullptr to make it clear that you are checking if the scene is set or not
 ```
-- [ ] Useful usage of (modern) file-I/O
+- [x] Useful usage of (modern) file-I/O
+``` cpp
+        std::string line;
+        while (getline(file, line)) {
+            if (line.empty() || line[0] == '#' || line[0] == '[') continue; // Skip comments and sections
+            std::istringstream iss(line);
+            std::string key;
+            int value;
+            if (getline(iss, key, '=') && iss >> value) {
+                config[key] = value;
+            }
+        }
+    }
+
+// config.ini
+
+maze_width=19
+maze_height=19
+chests=5
+holes=3
+player_speed=20
+
+
+// Usage of ini file for the settings of the game.
+```
 - [x] Useful exception handling
 ``` cpp
 if (width <= 0 || height <= 0) {
@@ -152,7 +211,7 @@ signals:
 - [ ] Test-driven development (written test plan or unit tests)
 - [ ] Solve bug ticket (with pull request or commit message issue link and issue branch)
 - [ ] Report a bug ticket on another project
-- [ ] Usage of a GUI
+- [x] Usage of a GUI
 - [ ] Usage of OpenGL or other 3D engine
 - [ ] Useful usage of an external library (not Qt)
 - [ ] Project that communicates (e.g., UART, BT) with hardware

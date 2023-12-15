@@ -61,6 +61,53 @@ Ofcourse all the conditions can also be altered, including the maze height and w
 <img width="300" alt="image" src="https://github.com/driesnuttin25/Mazerush/assets/114076101/43dab3ad-99bb-4b0f-a94b-9b18a38d06e7">
 <img width="300" alt="image" src="https://github.com/driesnuttin25/Mazerush/assets/114076101/b54500ad-832c-4a10-9db8-463854eaaa1c">
 
+
+---------------------------------------------------------------------------------------------------
+
+# Build manual
+
+### Prerequisites
+
+Before you begin, ensure you have the following installed:
+- [Qt Framework](https://www.qt.io/download)
+- C++ Compiler compatible with C++11 or later
+- [Git](https://git-scm.com/downloads) (optional, for cloning the repository)
+
+### Cloning the Repository
+To get a copy of the project on your local machine, run the following command in your terminal:
+```
+git clone https://github.com/driesnuttin25/Mazerush.git
+```
+
+Alternatively, you can download the source code directly from the GitHub repository.
+
+### Building the Project
+
+1. Open Qt Creator and select "Open Project".
+2. Navigate to the directory where you cloned or downloaded the project and select the MazeRush `.pro` file.
+3. Configure the project settings if prompted.
+4. Build the project by clicking on the "Build" button or pressing `Ctrl + B`.
+
+### Running the Game
+
+After building the project, you can run the game from within Qt Creator by clicking on the "Run" button or pressing `Ctrl + R`.
+
+## Configuration
+
+The game configuration can be adjusted in the `config.ini` file, located in the project root. You can modify the following settings:
+- `maze_width`: Width of the maze (number of cells)
+- `maze_height`: Height of the maze (number of cells)
+- `chests`: Number of chests in the maze
+- `holes`: Number of holes in the maze
+- `player_speed`: Player's movement speed
+
+Ensure the `config.ini` file is in the same directory as the executable when running the game.
+
+
+
+
+
+
 ## Technologies Used
 - C++ for game logic.
 - Qt Framework for graphics and UI components.
@@ -68,7 +115,6 @@ Ofcourse all the conditions can also be altered, including the maze height and w
 ## Acknowledgments
 
 - I am part of the PXL electronics and ICT group and this project is developed as part of an educational initiative to learn C++ and object-oriented programming.
-
 
 
 
