@@ -77,7 +77,21 @@ void Player::addCoin() {
 
 ## C++
 - [ ] Everything in one or more self-made namespace(s)
-- [ ] 2 useful unsigned chars or other better usage of memory efficient type
+- [x] 2 useful unsigned chars or other better usage of memory efficient type
+``` cpp
+unsigned char coins = 0;
+
+enum class Direction : unsigned char {
+    None = 0,
+    Up,
+    Down,
+    Left,
+    Right
+};
+
+// unsigned char coins = 0; efficiently stores coin counts using minimal memory, while the enum class Direction : unsigned char efficiently represents player directions with just one byte, optimizing memory usage.
+
+```
 - [ ] At least 4 useful const references for variables
 - [ ] At least 4 useful const references for functions
 - [ ] At least 4 useful bool
