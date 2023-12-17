@@ -1,8 +1,8 @@
 # Grading System
 
 ### Grades
-`[##########################------------------------] 52%`
-_26/50 points gathered_
+`[##########################------------------------] 54%`
+_27/50 points gathered_
 
 
 
@@ -36,7 +36,11 @@ Player::Player(QGraphicsItem* parent) : QGraphicsRectItem(parent), stepSize(3), 
 //The Player constructor uses member initialization to set up step size, player size, and key event handling, ensuring efficient object initialization.
 ```
 - [ ] Constructor forwarding
-- [ ] Useful proven (dynamic) polymorphism
+- [x] Useful proven (dynamic) polymorphism
+``` cpp
+virtual void interact(Player* player) override = 0;
+
+```
 - [x] Useful usage of "this"
 ``` cpp
 QGraphicsScene* newScene = new QGraphicsScene(this);
