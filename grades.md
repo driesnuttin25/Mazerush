@@ -1,8 +1,8 @@
 # Grading System
 
 ### Grades
-`[#########################-------------------------] 50%`
-_25/50 points gathered_
+`[##########################------------------------] 52%`
+_26/50 points gathered_
 
 
 
@@ -122,7 +122,18 @@ view = new MazeView(maze, player, cellSize);
     }
 
 ```
-- [ ] 2 useful (modern) call-by-references
+- [x] 2 useful (modern) call-by-references
+``` cpp
+QObject::connect(&titleScreen, &TitleScreen::startGame, [&]() {
+    startGame(mazeWidth, mazeHeight, 50 /* cellSize */, currentLevel, view, maze, player);
+});
+-------------------------------------------------------------------------------------------
+void startGame(int mazeWidth, int mazeHeight, int cellSize, int& currentLevel, MazeView*& view, Maze*& maze, Player*& player) {
+    // ...
+}
+
+// any changes made to these parameters inside startGame will reflect in the original variables that were passed.
+```
 - [x] Useful string class usage
 ``` cpp
         std::string line;
