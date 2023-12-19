@@ -98,7 +98,18 @@ enum class Direction : unsigned char {
 ```
 - [ ] At least 4 useful const references for variables
 - [ ] At least 4 useful const references for functions
-- [ ] At least 4 useful bool
+- [x] At least 4 useful bool
+``` cpp
+void Hole::interact(Player* player) {
+    hasFallenIntoHole = true;
+
+bool isCollected() const; // Check if chest is collected
+
+private:
+    bool collected; // Indicates if chest is collected
+
+bool level_complete = false;
+```
 - [x] Dynamic memory allocation (new)
 ``` cpp
 maze = new Maze(mazeWidth, mazeHeight);
