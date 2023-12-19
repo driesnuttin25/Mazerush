@@ -1,8 +1,8 @@
 # Grading System
 
 ### Grades
-`[############################----------------------] 60%`
-_30/50 points gathered_
+`[############################----------------------] 58%`
+_29/50 points gathered_
 
 
 
@@ -13,7 +13,7 @@ _30/50 points gathered_
 - [x] Maintainability by clean uniform code style and good function naming and/or comments everywhere
 - [x] Separate header files
 - [x] One complete project that compiles and does not crash
-- [x] Fully working project
+- [ ] Fully working project
 - [x] Sufficient git commits (± weekly)
 - [x] Correct files on git
 - [x] Working build manual as readme on GitHub
