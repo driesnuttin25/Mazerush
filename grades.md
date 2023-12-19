@@ -10,7 +10,7 @@ _29/50 points gathered_
 - [ ] Clean main
 - [x] No globals, but statics if needed
 - [ ] Correct protections
-- [ ] Maintainability by clean uniform code style and good function naming and/or comments everywhere
+- [x] Maintainability by clean uniform code style and good function naming and/or comments everywhere
 - [x] Separate header files
 - [x] One complete project that compiles and does not crash
 - [x] Fully working project
@@ -243,7 +243,7 @@ signals:
 ```
 - [ ] Test-driven development (written test plan or unit tests)
 - [ ] Solve bug ticket (with pull request or commit message issue link and issue branch)
-- [ ] Report a bug ticket on another project
+- [x] Report a bug ticket on another project
 - [x] Usage of a GUI
 - [ ] Usage of OpenGL or other 3D engine
 - [ ] Useful usage of an external library (not Qt)
