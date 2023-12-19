@@ -16,7 +16,8 @@ SOURCES += \
     TitleScreen.cpp \
     main.cpp \
     maze.cpp \
-    mazeview.cpp
+    mazeview.cpp \
+    startGame.cpp
 
 HEADERS += \
     Chest.h \
@@ -26,7 +27,8 @@ HEADERS += \
     Player.h \
     TitleScreen.h \
     maze.h \
-    mazeview.h
+    mazeview.h \
+    startGame.h
 
 FORMS +=
 

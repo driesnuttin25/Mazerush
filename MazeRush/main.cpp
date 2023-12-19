@@ -4,74 +4,36 @@
 #include "Maze.h"
 #include "MazeView.h"
 #include "Player.h"
-
-void startGame(int mazeWidth, int mazeHeight, int cellSize, int& currentLevel, MazeView*& view, Maze*& maze, Player*& player) {
-    qDebug() << "Starting new game level:" << currentLevel;
-
-    // Delete and reset existing objects if they exist
-    if (view) {
-        view->scene()->clear();
-        delete view;
-        view = nullptr;
-    }
-
-    if (maze) {
-        delete maze;
-        maze = nullptr;
-    }
-
-    if (player) {
-        delete player;
-        player = nullptr;
-    }
-
-    // Create new instances of Maze, Player, and MazeView
-    maze = new Maze(mazeWidth, mazeHeight);
-    player = new Player();
-    view = new MazeView(maze, player, cellSize);
-
-    // Setup the MazeView and its scene
-    view->setMaze(maze);
-    view->drawMaze();
-    view->scene()->addItem(player);
-    player->setPos(cellSize, cellSize); // Set initial player position
-    view->show();
-
-    // Connect the levelCompleted signal to start a new level
-    QObject::disconnect(player, &Player::levelCompleted, nullptr, nullptr);
-    QObject::connect(player, &Player::levelCompleted, [&mazeWidth, &mazeHeight, cellSize, &currentLevel, &view, &maze, &player]() mutable {
-        currentLevel++;
-        int newWidth = 7 + 2 * (currentLevel - 1);
-        int newHeight = newWidth;
-        startGame(newWidth, newHeight, cellSize, currentLevel, view, maze, player);
-    });
-}
-
-
+#include "startGame.h"
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
     qDebug() << "Application started";
 
+    // Load game configuration settings
     GameConfig config("C:/Users/dries/OneDrive/Music/Documents/TcXaeShell/Tc2_DMX_Sample_DMX_Master/Desktop/Cpp/MazeRush/config.ini");
 
+    // Retrieve initial maze dimensions from the configuration
     int initialMazeWidth = config.get("maze_width");
     int initialMazeHeight = config.get("maze_height");
-    int cellSize = 50;
-    int currentLevel = 1;
+    int cellSize = 50; // Set a fixed cell size
+    int currentLevel = 1; // Start from level 1
 
+    // Initialize pointers for the maze, view, and player
     MazeView* view = nullptr;
     Maze* maze = nullptr;
     Player* player = nullptr;
 
+    // Create and display the title screen
     TitleScreen titleScreen;
     QObject::connect(&titleScreen, &TitleScreen::startGame, [&](){
         qDebug() << "Start game signal received";
+        // Start the game when the 'Start Game' button is clicked
         startGame(initialMazeWidth, initialMazeHeight, cellSize, currentLevel, view, maze, player);
-        titleScreen.hide();
+        titleScreen.hide(); // Hide the title screen
     });
 
-    titleScreen.show();
+    titleScreen.show(); // Show the title screen
     qDebug() << "Title screen shown";
-    return app.exec();
+    return app.exec(); // Run the application event loop
 }

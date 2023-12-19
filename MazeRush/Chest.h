@@ -4,19 +4,20 @@
 
 #include "Player.h"
 #include "GameItem.h"
-#include "MazeView.h" // Include MazeView header
+#include "MazeView.h"
 #include <QGraphicsPixmapItem>
 
+// Chest class: Inherits from GameItem, represents collectible chests in the game
 class Chest : public GameItem {
 public:
-    Chest(Player* player, MazeView* mazeView, int x, int y, int cellSize);
-    bool isCollected() const;
-    void interact(Player* player) override;
+    Chest(Player* player, MazeView* mazeView, int x, int y, int cellSize); // Constructor
+    bool isCollected() const; // Check if chest is collected
+    void interact(Player* player) override; // Interaction with player
 
 private:
-    bool collected;
-    Player* player;
-    MazeView* mazeView; // Declare MazeView pointer
+    bool collected; // Indicates if chest is collected
+    Player* player; // Reference to player
+    MazeView* mazeView; // Reference to MazeView for graphical interaction
 };
 
 #endif // CHEST_H
