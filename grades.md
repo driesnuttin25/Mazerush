@@ -1,8 +1,8 @@
 # Grading System
 
 ### Grades
-`[#####################################-------------] 72%`
-_37/50 points gathered_
+`[######################################------------] 74%`
+_38/50 points gathered_
 
 
 
@@ -19,7 +19,14 @@ _37/50 points gathered_
 - [x] Working build manual as readme on GitHub
 
 ## Object-Oriented Programming (OOP)
-- [ ] At least 2 default constructors
+- [x] At least 2 default constructors
+``` cpp
+// In the Player class:
+Player() : Player("Guest") {}  // Default constructor with forwarding
+
+// In the Question class:
+Question() : text("What is 2 + 2?"), answer(4) {}  // Default constructor
+```
 - [x] At least 2 parameterized constructors
 ```cpp
 Chest::Chest(Player* player, MazeView* mazeView, int x, int y, int cellSize) {...}
