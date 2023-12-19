@@ -1,25 +1,25 @@
 # Grading System
 
 ### Grades
-`[#########################-------------------------] 50%`
-_25/50 points gathered_
+`[############################----------------------] 58%`
+_29/50 points gathered_
 
 
 
 ## General
-- [ ] Clean main
+- [x] Clean main
 - [x] No globals, but statics if needed
 - [ ] Correct protections
-- [ ] Maintainability by clean uniform code style and good function naming and/or comments everywhere
+- [x] Maintainability by clean uniform code style and good function naming and/or comments everywhere
 - [x] Separate header files
 - [x] One complete project that compiles and does not crash
-- [x] Fully working project
+- [ ] Fully working project
 - [x] Sufficient git commits (± weekly)
 - [x] Correct files on git
 - [x] Working build manual as readme on GitHub
 
 ## Object-Oriented Programming (OOP)
-- [ ] At least 2 default constructors
+- [] At least 2 default constructors
 - [x] At least 2 parameterized constructors
 ```cpp
 Chest::Chest(Player* player, MazeView* mazeView, int x, int y, int cellSize) {...}
@@ -36,7 +36,11 @@ Player::Player(QGraphicsItem* parent) : QGraphicsRectItem(parent), stepSize(3), 
 //The Player constructor uses member initialization to set up step size, player size, and key event handling, ensuring efficient object initialization.
 ```
 - [ ] Constructor forwarding
-- [ ] Useful proven (dynamic) polymorphism
+- [x] Useful proven (dynamic) polymorphism
+``` cpp
+virtual void interact(Player* player) override = 0;
+
+```
 - [x] Useful usage of "this"
 ``` cpp
 QGraphicsScene* newScene = new QGraphicsScene(this);
@@ -122,7 +126,18 @@ view = new MazeView(maze, player, cellSize);
     }
 
 ```
-- [ ] 2 useful (modern) call-by-references
+- [x] 2 useful (modern) call-by-references
+``` cpp
+QObject::connect(&titleScreen, &TitleScreen::startGame, [&]() {
+    startGame(mazeWidth, mazeHeight, 50 /* cellSize */, currentLevel, view, maze, player);
+});
+-------------------------------------------------------------------------------------------
+void startGame(int mazeWidth, int mazeHeight, int cellSize, int& currentLevel, MazeView*& view, Maze*& maze, Player*& player) {
+    // ...
+}
+
+// any changes made to these parameters inside startGame will reflect in the original variables that were passed.
+```
 - [x] Useful string class usage
 ``` cpp
         std::string line;
@@ -210,7 +225,7 @@ signals:
 ```
 - [ ] Test-driven development (written test plan or unit tests)
 - [ ] Solve bug ticket (with pull request or commit message issue link and issue branch)
-- [ ] Report a bug ticket on another project
+- [x] Report a bug ticket on another project
 - [x] Usage of a GUI
 - [ ] Usage of OpenGL or other 3D engine
 - [ ] Useful usage of an external library (not Qt)
