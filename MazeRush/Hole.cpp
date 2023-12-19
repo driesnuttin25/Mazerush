@@ -17,5 +17,6 @@ Hole::Hole(int x, int y, int cellSize) {
 
 // Defines interaction behavior when the player encounters a hole
 void Hole::interact(Player* player) {
+    hasFallenIntoHole = true;
     QApplication::quit(); // Temporarily ends the application when the player falls into a hole
 }

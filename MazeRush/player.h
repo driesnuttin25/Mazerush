@@ -30,7 +30,7 @@ public:
     void resetState(); // Resets the player's state
     void updateSprite(const QString &direction); // Updates the player's sprite based on direction
     bool keyHeld = false; // Flag to check if a key is held down
-
+    bool level_complete = false;
 public slots:
     void move(); // Slot to handle player movement
 

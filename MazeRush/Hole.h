@@ -10,6 +10,7 @@ class Hole : public GameItem {
 public:
     Hole(int x, int y, int cellSize); // Constructor to initialize a hole at a position with a size
     void interact(Player* player) override; // Defines interaction with the player
+    bool hasFallenIntoHole = false;
 };
 
 #endif // HOLE_H

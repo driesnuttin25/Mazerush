@@ -154,6 +154,7 @@ void Player::addCoin() {
     qDebug() << "Coin added. Total coins:" << coins;
     if (coins == 9) {  // Assuming you have a constant or variable for this
         qDebug() << "All coins collected. Level completed.";
+        level_complete = true;
         emit levelCompleted();
     }
 }
