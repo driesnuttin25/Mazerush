@@ -38,7 +38,7 @@ Player(const Player& other)
 Question(const Question& other) : text(other.text), answer(other.answer) {}
 
 ```
-- [ ] At least 2 destructors
+- [x] At least 2 destructors
 ```cpp
 MATH GAME
 // in Player class
@@ -118,7 +118,7 @@ inline bool isAnswerCorrect(int response) const {
 
 
 ```
-- [ ] Useful template function or class
+- [x] Useful template function or class
 ``` cpp
 MATH GAME
 // in Scorelist template class 
@@ -142,7 +142,7 @@ private:
 
 
 ```
-- [ ] Useful friend function or class
+- [x] Useful friend function or class
 ``` cpp
 class QuizGame {
 public:
