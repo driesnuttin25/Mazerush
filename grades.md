@@ -1,8 +1,8 @@
 # Grading System
 
 ### Grades
-`[##########################------------------------] 54%`
-_27/50 points gathered_
+`[##########################------------------------] 58%`
+_29/50 points gathered_
 
 
 
@@ -19,7 +19,16 @@ _27/50 points gathered_
 - [x] Working build manual as readme on GitHub
 
 ## Object-Oriented Programming (OOP)
-- [ ] At least 2 default constructors
+- [x] At least 2 default constructors
+```cpp
+// Inside GameConfig.h
+public:
+  GameConfig();
+
+// Inside Maze.h
+public:
+  Maze();
+```
 - [x] At least 2 parameterized constructors
 ```cpp
 Chest::Chest(Player* player, MazeView* mazeView, int x, int y, int cellSize) {...}
@@ -28,7 +37,16 @@ Hole::Hole(int x, int y, int cellSize) {...}
 // The Chest and Hole classes both have parameterized constructors, allowing for the initialization of their properties based on provided arguments.
 ```
 - [ ] At least 2 copy constructors
-- [ ] At least 2 destructors
+- [x] At least 2 destructors
+``` cpp
+// Inside Player.h
+public:
+  ~Player();
+
+// Inside Maze.h
+public:
+  ~Maze();
+```
 - [x] Member initialization in constructors
 ```cpp
 Player::Player(QGraphicsItem* parent) : QGraphicsRectItem(parent), stepSize(3), playerSize(20, 20) {...}
