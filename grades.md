@@ -1,8 +1,8 @@
 # Grading System
 
 ### Grades
-`[############################----------------------] 60%`
-_30/50 points gathered_
+`[#####################################-------------] 72%`
+_37/50 points gathered_
 
 
 
@@ -27,15 +27,41 @@ Hole::Hole(int x, int y, int cellSize) {...}
 
 // The Chest and Hole classes both have parameterized constructors, allowing for the initialization of their properties based on provided arguments.
 ```
-- [ ] At least 2 copy constructors
+- [x] At least 2 copy constructors
+```cpp
+MATH GAME
+// in Player class
+Player(const Player& other)
+    : playerName(other.playerName), playerScore(other.playerScore) {}
+
+// in Question class
+Question(const Question& other) : text(other.text), answer(other.answer) {}
+
+```
 - [ ] At least 2 destructors
+```cpp
+MATH GAME
+// in Player class
+~Player() {}
+
+
+// in Question class
+~Question() {}
+
+```
 - [x] Member initialization in constructors
 ```cpp
 Player::Player(QGraphicsItem* parent) : QGraphicsRectItem(parent), stepSize(3), playerSize(20, 20) {...}
 
 //The Player constructor uses member initialization to set up step size, player size, and key event handling, ensuring efficient object initialization.
 ```
-- [ ] Constructor forwarding
+- [x] Constructor forwarding
+```cpp
+MATH GAME
+In Player class:
+
+Player() : Player("Guest") {}
+```
 - [x] Useful proven (dynamic) polymorphism
 ``` cpp
 virtual void interact(Player* player) override = 0;
@@ -55,7 +81,14 @@ void Player::move() {...}
 
 //The move function in Player is a key member function controlling player movement based on key presses.
 ```
-- [ ] Default values in function definition
+- [x] Default values in function definition
+``` cpp
+MATH GAME
+void setDefaultScore(int score = 0) {
+    playerScore = score;
+}
+
+```
 - [x] Useful member variable
 ```cpp
 private:
@@ -75,9 +108,50 @@ void Player::addCoin() {
 
 //  The getCoins method in Player is a getter that allows other classes to safely access the player's coin count.
 ```
-- [ ] Correct usage of inline function
+- [x] Correct usage of inline
+``` cpp
+MATH GAME
+// In question class
+inline bool isAnswerCorrect(int response) const {
+    return response == answer;
+}
+
+
+```
 - [ ] Useful template function or class
+``` cpp
+MATH GAME
+// in Scorelist template class 
+template<typename T>
+class ScoreList {
+public:
+    void addScore(const T& score) {
+        scores.push_back(score);
+    }
+
+    void displayAllScores() const {
+        std::cout << "Scoreboard:" << std::endl;
+        for (const auto& score : scores) {
+            std::cout << score << std::endl;
+        }
+    }
+
+private:
+    std::vector<T> scores;
+};
+
+
+```
 - [ ] Useful friend function or class
+``` cpp
+class QuizGame {
+public:
+    // ... other members ...
+    friend class GameLogger;
+    // ... other members ...
+};
+
+```
 
 ## C++
 - [ ] Everything in one or more self-made namespace(s)
