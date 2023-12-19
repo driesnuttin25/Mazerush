@@ -19,7 +19,7 @@ _29/50 points gathered_
 - [x] Working build manual as readme on GitHub
 
 ## Object-Oriented Programming (OOP)
-- [] At least 2 default constructors
+- [ ] At least 2 default constructors
 - [x] At least 2 parameterized constructors
 ```cpp
 Chest::Chest(Player* player, MazeView* mazeView, int x, int y, int cellSize) {...}
